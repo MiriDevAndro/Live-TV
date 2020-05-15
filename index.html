@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- <link rel="stylesheet" href="materialdesignicons.min.css"> -->
+<!-- <link rel="stylesheet" href="rrssb.css"> -->
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="materialdesignicons.min.css">
+<link rel="stylesheet" href="bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!-- <script src="m63e4nw5cs17.js" type="text/javascript"></script> -->
+<script src='jquery.min.js'></script>
+	<script src="jquery.min.js"></script>
+	<!-- <script src="underscore-min.js"></script> -->
+	<!-- <script src="backbone.js"></script> -->
+	
+	
+	<style>
+
+@media only screen and (max-width:960px) {
+  .main-sidebar, .embed, .description, .coverimage, .facebook, .chatango {
+    display:none;
+  }
+}
+
+[data-toggle='on'] {
+  display:block;
+}
+[data-toggle='off'] {
+  display:none;
+}
+
+.cookieAcceptBar {
+  display:none;
+  position: fixed;
+  z-index:1000;
+  top: 50%;
+  height:100vh;
+  left:10%;
+  right: 10%;
+  text-align: center;
+  background-color: #000000f5;
+  color: #fff;
+  padding: 20px 0;
+  z-index: 99999;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+.cookieAcceptBar a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+.cookieAcceptBar b{
+		margin-top:10%;
+   font-size:42px;
+  display:block;
+  }
+.cookieAcceptBar button {
+  cursor: pointer;
+  border: none;
+  background-color: #2387c0;
+  color: #fff;
+  text-transform: uppercase;
+  margin-top: 10px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 20px;
+}
+
+
+#fav{
+	display:none;
+	position:fixed;
+	z-index:1000;
+	right:10px;
+overflow-x: hidden!important;
+	overflow:scroll;
+	max-height:80vh;
+	background:#fff;
+	top:20px;
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: #000; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+#show{
+	color:#007bff;
+}
+#close{
+	padding:5px 20px;
+	border:0;
+	background:#007bff;
+	color:#fff;
+	font-size:12px;
+}
+
+
+#container {
+  margin:0;
+  width:300px;
+  position:relative;
+  background: #fff;
+}
+
+#header{
+  background: #ccc;
+  padding:20px;
+}
+
+#content {
+   padding: 5px 20px 10px 20px;
+}
+
+h2 {
+  padding:0;
+  margin:0;
+  font-weight:100;
+  color: #333;
+}
+
+ul {
+  padding: 0;
+  margin: 0px;
+}
+
+.removebtn { 
+  border:none;
+  background: none;
+  color: #999;
+  float:right;
+}
+
+.removebtn:hover {
+  opacity: 0.7;
+}
+
+ul li {
+  margin: 0;
+  list-style:none;
+}
+
+#favorite-links li {
+  padding:10px;
+  border-bottom: 1px solid #ccc;
+ 
+}
+
+#favorite-links li:last-child {
+  border:none;
+}
+
+#favorite-links a {
+  color: #333;
+  text-decoration:none;
+}
+
+#favorite-links li:hover {
+  background: #ccc;
+}
+
+#add-link-form {
+  display:none;
+  background: #444;
+  padding:20px;
+  color: #ccc;
+}
+
+#add-link-form input {
+  margin: 5px 0;
+  width:100%;
+  color: #333;
+  padding:5px;
+  outline:none;
+  border:none;
+}
+
+.share{
+	display:none;
+}
+
+#new-link-button button, #add-link-form button {
+  margin:10px 0;
+  background: #007bff;
+  border: none;
+  color: #fff;
+  padding:5px 15px;
+  width:100%;
+  height:35px;
+}
+
+#cat2, #cat3, #cat4, #cat5{
+	display:none;
+}
+
+
+#info{
+	top:180px;
+	left:10px;
+	overflow: hidden;
+	z-index: 1000;
+	display: block;
+	position: absolute;
+	background:#000;
+	padding:5px;
+}
+
+#info1{
+	display:none;
+	background:#000;
+	width:400px;
+	position:absolute;
+	top:180px;
+	padding:20px;
+	left:10px;
+	z-index:1000;
+	box-shadow: 5px 5px #007bff63;
+	border:solid 1px #007bff63;
+}
+
+#news1{
+	top:230px;
+	left:10px;
+	overflow: hidden;
+	z-index: 1000;
+	display: block;
+	position: absolute;
+	background:#000;
+	padding:5px;
+}
+
+#news2{
+	display:none;
+	background:#000;
+	width:60%;
+	position:absolute;
+	top:230px;
+	padding:20px;
+	left:10px;
+	z-index:1000;
+	box-shadow: 5px 5px #007bff63;
+	border:solid 1px #007bff63;
+}
+
+#comment{
+	top:280px;
+	left:10px;
+	overflow: hidden;
+	z-index: 1000;
+	display: block;
+	position: absolute;
+	background:#000;
+	padding:5px;
+}
+
+#comment1{
+	display:none;
+	background:#000;
+	width:60%;
+	position:absolute;
+	top:280px;
+	padding:20px;
+	left:10px;
+	z-index:1000;
+	box-shadow: 5px 5px #007bff63;
+	border:solid 1px #007bff63;
+}
+</style>
+	<script src="parsem3.js"></script>
+</head>
+<body>
+  
+  
+<div class="channels" id="che">
+<style>
+#search a{
+	font-size:0px
+}
+.stirr{
+	text-align:center
+}
+.stirr p{
+	display:inline-block;
+	margin: 3px;
+}
+.stirr a{
+	line-height:20px;
+	background-color:#fd0;
+	padding:3px;
+	color:#000;
+	font-weight:bold;
+	text-transform:uppercase;
+	text-rendering: geometricPrecision;
+	letter-spacing: -1px;
+	display: table-cell; vertical-align: middle;
+}
+.stirr a div{
+	position: absolute;
+    font-size: 10px;
+    width: 20px;
+    height: 20px;
+    padding-left: 4px;
+    line-height: 1.8;
+    top: 80px;
+    border-radius: 5px 0 0 0px;
+    color: #cacaca;
+    right: 0px;
+    background-color: #000;
+    z-index: 100;
+}
+.lang{
+position: absolute;
+    font-size: 10px;
+    height: 20px;
+    padding-left: 1px;
+    line-height: 1.8;
+    top: 80px;
+    border-radius: 5px 0 0 0px;
+    color: #cacaca;
+    right: 1px;
+    background-color: #000;
+    z-index: 100;
+}
+.buttons{
+	margin:20px;
+	margin-top:0px;
+}
+.buttons button{
+	padding:5px 10px;
+	background-color:#000;
+	border-radius:5px;
+	border:solid 1px #007bff;
+	color:#007bff;
+}
+.buttons button:focus{
+	background-color:#007bff;
+	color:#fff;
+}
+[data-toggle='on'] {
+  display:block;
+}
+[data-toggle='off'] {
+  display:none!important;
+}
+</style>
+
+
+
+
+</div>
+</div>
+
+<script>
+var isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i);
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+};
+
+var mob = false;
+
+if( isMobile.any() ){
+mob= true;
+}
+
+
+var xhr = new XMLHttpRequest();
+xhr.open("GET", "https://dl.dropboxusercontent.com/s/9yin9akdex92cez/lista.m3u");
+xhr.onload = parse;
+xhr.send();
+
+
+// Parse it
+function parse () {
+  const result = Parser.parse(xhr.response);
+  
+  for(var i=0;i< result.items.length;i++){
+  
+  
+  var opt =result.items[i];
+  var el = document.createElement("a");
+		el.target = "_blank";
+		el.name = opt.name;
+		//el.createTextNode(opt.name);
+		//el.onclick = play("http://www.reloltv.com/embed-custom.php?video=" + opt.url);
+		
+		if(mob){
+
+      var url = opt.url;
+      
+		el.href = "intent:"+url+"#Intent;package=com.mxtech.videoplayer.ad;S.title="+opt.name+";end";
+
+		}else{
+
+		el.setAttribute("onclick", "var win =window.open('','', 'directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1080,height=800'); win.document.body.innerHTML = \"<iframe src='http://www.reloltv.com/embed-custom.php?video=" + opt.url+"' frameborder='0' scrolling='no' id='if' width='100%' height='100%'></iframe>\";");
+		
+    }
+    
+    document.getElementById('che').appendChild(el);
+		
+		 var pp = document.createElement("p");
+		pp.setAttribute("class","lang");
+		pp.innerText = opt.name;
+		el.appendChild(pp);
+		
+		
+		 var ell = document.createElement("img");
+		 
+		 if(opt.tvg.logo !=""){
+		 //ell.setAttribute("src" ,opt.tvg.logo);
+		  ell.src =opt.tvg.logo;
+		 }else{
+		 ell.src = "https://image.flaticon.com/icons/svg/725/725045.svg";
+		 }
+		
+		el.appendChild(ell);
+		
+		
+       // el.value = opt;
+      //  select.appendChild(el);
+  
+//console.log(opt.name);
+  }
+
+  //alert(result.items[0].url);
+//console.log(result);
+
+
+//document.getElementById('if').src = "http://www.reloltv.com/embed-custom.php?video=" + result.items[0].url;
+
+
+};
+
+</script>
+
+	
+</body>
+</html>
