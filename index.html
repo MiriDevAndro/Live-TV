@@ -283,12 +283,106 @@ ul li {
 	box-shadow: 5px 5px #007bff63;
 	border:solid 1px #007bff63;
 }
+		
+		
+		
+		
+.linear-activity {
+    overflow: hidden;
+    width: 50%;
+    height: 4px;
+    background-color: rgb(236, 236, 236);
+    margin: 20px auto;
+}
+
+.indeterminate {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.indeterminate:before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    background-color: #ef5349	;
+    animation: indeterminate_first 1.5s infinite ease-out;
+}
+
+.indeterminate:after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    background-color: rgb(249, 253, 255);
+    animation: indeterminate_second 1.5s infinite ease-in;
+}
+
+@keyframes indeterminate_first {
+    0% {
+        left: -100%;
+        width: 100%;
+    }
+    100% {
+        left: 100%;
+        width: 10%;
+    }
+}
+
+@keyframes indeterminate_second {
+    0% {
+        left: -150%;
+        width: 100%;
+    }
+    100% {
+        left: 100%;
+        width: 10%;
+    }
+}
+
+
+
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Teko",sans-serif;
+    color: #2c234d;
+    margin-top: 0px;
+    font-style: normal;
+    font-weight: 500;
+    text-transform: normal;
+}
+
+span {
+    color: #f15f22;
+}
+
+h1 {
+  text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: #fff;
+    line-height: 95px;
+    text-transform: capitalize;
+    margin-bottom: 40px;
+}
+		
+		
 </style>
 	<script src="parsem3.js"></script>
 	
 	
 	<script src="https://pushsar.com/pfe/current/tag.min.js?z=2371502" data-cfasync="false" async></script>
 	<script type="text/javascript" src="//ofgogoatan.com/apu.php?zoneid=2371497" async data-cfasync="false"></script>
+	
+	
+	
+  <h1><span>AlbaniaIPTV - Live TV</span></h1>
+  
+<div class="linear-activity" id="loading">
+  <div class="indeterminate"></div>
+</div>
+  
 	
 </head>
 <body style="width:100%;background-color:#ffe7e6;padding:0 20px;;">
@@ -456,6 +550,14 @@ function parse () {
 		
        // el.value = opt;
       //  select.appendChild(el);
+	  
+	  
+      if(i == result.items.length -1){
+        var element = document.getElementById("loading");
+    element.parentNode.removeChild(element);
+
+   // console.log("===="+opt.name +i);
+      }
   
 //console.log(opt.name);
   }
