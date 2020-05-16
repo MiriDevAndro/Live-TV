@@ -366,7 +366,27 @@ h1 {
     text-transform: capitalize;
     margin-bottom: 40px;
 }
-		
+
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
 		
 </style>
 	<script src="parsem3.js"></script>
@@ -378,6 +398,11 @@ h1 {
 	
 	
   <h1><span>AlbaniaIPTV - Live TV</span></h1>
+	
+	<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  <strong>Kujdes!</strong> Kanalet jane mare automatikisht nga faqe te tjera dhe nuk jane te kontrolluara !
+</div>
   
 <div class="linear-activity" id="loading">
   <div class="indeterminate"></div>
