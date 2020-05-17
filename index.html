@@ -366,13 +366,7 @@ h1 {
     text-transform: capitalize;
     margin-bottom: 40px;
 }
-
-.alert {
-  padding: 20px;
-  background-color: #f44336;
-  color: white;
-}
-
+		
 .closebtn {
   margin-left: 15px;
   color: white;
@@ -392,6 +386,12 @@ h1 {
 	<script src="parsem3.js"></script>
 	
 	
+  
+	
+</head>
+<body style="width:100%;background-color:#ffe7e6;padding:0 20px;;">
+  
+	
 	<script src="https://pushsar.com/pfe/current/tag.min.js?z=2371502" data-cfasync="false" async></script>
 	<script type="text/javascript" src="//ofgogoatan.com/apu.php?zoneid=2371497" async data-cfasync="false"></script>
 	
@@ -399,20 +399,22 @@ h1 {
 	
   <h1><span>AlbaniaIPTV - Live TV</span></h1>
 	
-	<div class="alert">
-  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-  <strong>Kujdes!</strong> Kanalet jane mare automatikisht nga faqe te tjera dhe nuk jane te kontrolluara !
-</div>
+
+	
+
+  <div class="alert" style="padding: 20px; background-color: #f44336; color: white;">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+    <strong>Kujdes!</strong> Ne pc, qe disa kanale te hapen duhet te instaloni kte extension ne Google Chrome ! <a target="_blank" href="https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloancbhjino?hl=en">CORS Unblock</a> (Aktivizoje kur sheh kanalet , pasi te ikesh nga kjo faqe caktivizoje)
+  </div>
+  
+  <div class="alert" style="padding: 20px; background-color: #ff9800; color: white;">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+    <strong>Kujdes!</strong> Kanalet jane mare automatikisht nga faqe te tjera dhe nuk jane te kontrolluara !
+  </div>
   
 <div class="linear-activity" id="loading">
   <div class="indeterminate"></div>
 </div>
-  
-	
-</head>
-<body style="width:100%;background-color:#ffe7e6;padding:0 20px;;">
-  
-
 	
 <div class="channels" id="che">
 <style>
@@ -518,11 +520,12 @@ var isMobile = {
 
 var mob = false;
 
-if( isMobile.any() ){
+if( isMobile.Android() ){
 mob= true;
 }
 
-function goPlay(){
+function goPlay() {
+
 var xhr = new XMLHttpRequest();
 xhr.open("GET", "https://dl.dropboxusercontent.com/s/yfkvutkb1b07ls7/lista.m3u");
 xhr.onload = parse;
@@ -552,7 +555,7 @@ function parse () {
 		}else{
 
       el.href = "http://www.reloltv.com/embed-custom.php?video=" + opt.url;
-		//el.setAttribute("onclick", "var win =window.open('','', 'directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1080,height=800'); win.document.body.innerHTML = \"<iframe src='http://www.reloltv.com/embed-custom.php?video=" + opt.url+"' frameborder='0' scrolling='no' id='if' width='100%' height='100%'></iframe>\";");
+		//el.setAttribute("onclick", "var win =window.open('','', 'directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1080,height=800'); win.document.body.innerHTML = \"<iframe src='http://127.0.0.1/flowp/flow.html?=" + opt.url+"="+opt.name+"' frameborder='0' scrolling='no' id='if' width='100%' height='100%'></iframe>\";");
 		
     }
     
@@ -567,7 +570,7 @@ function parse () {
 		 var ell = document.createElement("img");
 		 
 		 if(opt.tvg.logo !=""){
-		 //ell.setAttribute("src" ,opt.tvg.logo);
+
 		  ell.src =opt.tvg.logo;
 		 }else{
 		 ell.src = "https://image.flaticon.com/icons/svg/725/725045.svg";
@@ -575,37 +578,30 @@ function parse () {
 		
 		el.appendChild(ell);
 		
-		
-       // el.value = opt;
-      //  select.appendChild(el);
-	  
-	  
+
       if(i == result.items.length -1){
         var element = document.getElementById("loading");
     element.parentNode.removeChild(element);
 
-   // console.log("===="+opt.name +i);
+
       }
   
-//console.log(opt.name);
+
   }
-
-  //alert(result.items[0].url);
-//console.log(result);
-
-
-//document.getElementById('if').src = "http://www.reloltv.com/embed-custom.php?video=" + result.items[0].url;
 
 
 };
-}	
-	
+
+}
+
 function adBlockNotDetected() {
-  goPlay();
+tjeter();
 }
 // Function called if AdBlock is detected
 function adBlockDetected() {
 	alert('AdBlock esht aktiv . Caktivizoje per te vazhduar!');
+  var element = document.getElementById("loading");
+    element.parentNode.removeChild(element);
 }
 
 // We look at whether FuckAdBlock already exists.
@@ -633,6 +629,184 @@ if(typeof fuckAdBlock !== 'undefined' || typeof FuckAdBlock !== 'undefined') {
 }
 
 
+
+function tjeter(){
+
+
+  var baseu = 'http://www.knaqu.tv/';
+  
+  var bb = ['http://www.knaqu.tv/channel/film-aksion-live/','http://www.knaqu.tv/channel/tv-klan-live/','http://www.knaqu.tv/channel/super-sport-2-live-albania/','http://www.knaqu.tv/channel//explorer-shkenc-live/'];
+  
+
+  for(var i=0;i<bb.length;i++){
+    fetch(bb[i]).then((response) => 
+    response.text()
+    ).then( function (text) { 
+    
+    
+    var parser = new DOMParser();
+    var htmlDoc = parser.parseFromString(text, 'text/html');
+    
+    
+    var kanli = htmlDoc.getElementById('featured').getElementsByTagName('a');
+    
+    for(var i=0;i < kanli.length;i++){
+  
+  
+      
+     var url = kanli[i].getAttribute('href')!="#"? kanli[i].getAttribute('href'): "";
+    
+       var img = kanli[i].getElementsByTagName('img').length >0 ? kanli[i].getElementsByTagName('img')[0].getAttribute('src') : "" ;
+      
+      
+        var name = kanli[i].getElementsByTagName('img').length > 0? kanli[i].getElementsByTagName('img')[0].getAttribute('alt'): "ska info";
+  
+      
+        pla(url,img,name);
+
+  
+    }
+
+
+    }
+    );
+  
+    }
+  
+  
+  
+  
+  
+  function pla(url,img,name){
+  
+  if(url != "")
+    fetch(baseu+url).then((response) => 
+    response.status == 200? response.text() : ''
+    ).then( function (text) { 
+  if(text != ''){
+      
+    var parser = new DOMParser();
+    var htmlDoc = parser.parseFromString(text, 'text/html');
+  
+  var mi = htmlDoc.getElementById('latest').getElementsByTagName('div')!= null? htmlDoc.getElementById('latest').getElementsByTagName('div')[0] : htmlDoc.getElementById('latest');
+  
+
+  var sc = mi.getElementsByTagName('script');
+    for(var i=0;i<sc.length;i++){
+  
+  
+      if(sc[i].innerText.includes('source:\"')){
+
+
+     var urll = sc[i].innerText.split('source:\"')[1].split('\"')[0];
+
+
+      var el = document.createElement("a");
+        el.target = "_blank";
+  
+  
+        if(urll.startsWith('http')){
+  
+          el.href = "http://www.reloltv.com/embed-custom.php?video=" + urll;
+      
+        
+  
+        }else{
+  
+  
+          el.href = "http://www.reloltv.com/embed-custom.php?video="+ baseu + urll;
+      
+        
+  
+        }
+        
+        
+        
+        document.getElementById('che').appendChild(el);
+  
+      var pp = document.createElement("p");
+      pp.setAttribute("class","lang");
+      pp.innerText = name;
+      el.appendChild(pp);
+      
+      
+       var ell = document.createElement("img");
+       
+       if(img !=""){
+         
+        ell.src =baseu + img;
+       }else{
+       ell.src = "https://image.flaticon.com/icons/svg/725/725045.svg";
+       }
+      
+      el.appendChild(ell);
+      
+  
+  
+  
+      }else if(sc[i].innerText.includes('source: window.atob(\'')){
+
+        var urll = sc[i].innerText.split('source: window.atob(\'')[1].split('\"')[0];
+  
+      var el = document.createElement("a");
+        el.target = "_blank";
+              el.href = "http://www.reloltv.com/embed-custom.php?video="+ baseu + url + urll;
+      
+        
+        
+              document.getElementById('che').appendChild(el);
+  
+      var pp = document.createElement("p");
+      pp.setAttribute("class","lang");
+      pp.innerText = name;
+      el.appendChild(pp);
+
+      
+      var ell = document.createElement("img");
+       
+       if(img !=""){
+         
+        ell.src =baseu + img;
+       }else{
+       ell.src = "https://image.flaticon.com/icons/svg/725/725045.svg";
+       }
+      
+      el.appendChild(ell);
+  
+  
+      }
+  
+      
+       
+  
+    }
+   
+  }
+  
+  
+    });
+
+
+
+
+    }
+
+
+
+    goPlay();
+
+
+}
+
+
+  
+  //   function sleep(milliseconds) {
+  //   const date = Date.now();
+  //   let currentDate = null;
+  //   do {
+  //     currentDate = Date.now();
+  //   } while (currentDate - date < milliseconds);
+  // }
 
 </script>
 
