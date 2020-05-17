@@ -635,15 +635,18 @@ function tjeter(){
   var baseu = 'http://www.knaqu.tv/';
   
   var bb = ['http://www.knaqu.tv/channel/film-aksion-live/','http://www.knaqu.tv/channel/tv-klan-live/','http://www.knaqu.tv/channel/super-sport-2-live-albania/','http://www.knaqu.tv/channel//explorer-shkenc-live/'];
-  
 
-  for(var i=0;i<bb.length;i++){
-    fetch(bb[i]).then((response) => 
-    response.text()
-    ).then( function (text) { 
-    
-    
-    var parser = new DOMParser();
+for(var i = 0;i<bb.length;i++){
+
+  $.ajax({
+                method: 'get',
+                url: bb[i],
+                success: function(text) {
+
+
+
+
+                  var parser = new DOMParser();
     var htmlDoc = parser.parseFromString(text, 'text/html');
     
     
@@ -652,6 +655,7 @@ function tjeter(){
     for(var i=0;i < kanli.length;i++){
   
   
+      //console.log(kanli[i]);
       
      var url = kanli[i].getAttribute('href')!="#"? kanli[i].getAttribute('href'): "";
     
@@ -667,133 +671,146 @@ function tjeter(){
     }
 
 
-    }
-    );
-  
-    }
-  
+
+
+
+                }
+            });
+
+}
+
   
   
   
   
   function pla(url,img,name){
   
-  if(url != "")
-    fetch(baseu+url).then((response) => 
-    response.status == 200? response.text() : ''
-    ).then( function (text) { 
-  if(text != ''){
+  if(url != ""){
+
+
+    $.ajax({
+                method: 'get',
+                url: baseu + url,
+                success: function(text) {
+                  
+
+
+                  if(text != ''){
       
-    var parser = new DOMParser();
-    var htmlDoc = parser.parseFromString(text, 'text/html');
+      var parser = new DOMParser();
+      var htmlDoc = parser.parseFromString(text, 'text/html');
+    
+    var mi = htmlDoc.getElementById('latest').getElementsByTagName('div')!= null? htmlDoc.getElementById('latest').getElementsByTagName('div')[0] : htmlDoc.getElementById('latest');
+    
   
-  var mi = htmlDoc.getElementById('latest').getElementsByTagName('div')!= null? htmlDoc.getElementById('latest').getElementsByTagName('div')[0] : htmlDoc.getElementById('latest');
-  
-
-  var sc = mi.getElementsByTagName('script');
-    for(var i=0;i<sc.length;i++){
-  
-  
-      if(sc[i].innerText.includes('source:\"')){
-
-
-     var urll = sc[i].innerText.split('source:\"')[1].split('\"')[0];
-
-
-      var el = document.createElement("a");
-        el.target = "_blank";
+    var sc = mi.getElementsByTagName('script');
+      for(var i=0;i<sc.length;i++){
+    
+    
+        if(sc[i].innerText.includes('source:\"')){
   
   
-        if(urll.startsWith('http')){
+       var urll = sc[i].innerText.split('source:\"')[1].split('\"')[0];
   
-          el.href = "http://www.reloltv.com/embed-custom.php?video=" + urll;
-      
+  
+        var el = document.createElement("a");
+          el.target = "_blank";
+    
+    
+          if(urll.startsWith('http')){
+    
+            el.href = "http://www.reloltv.com/embed-custom.php?video=" + urll;
         
-  
-        }else{
-  
-  
-          el.href = "http://www.reloltv.com/embed-custom.php?video="+ baseu + urll;
-      
+          
+    
+          }else{
+    
+    
+            el.href = "http://www.reloltv.com/embed-custom.php?video="+ baseu + urll;
         
+          
+    
+          }
+          
+          
+          
+          document.getElementById('che').appendChild(el);
+    
+        var pp = document.createElement("p");
+        pp.setAttribute("class","lang");
+        pp.innerText = name;
+        el.appendChild(pp);
+        
+        
+         var ell = document.createElement("img");
+         
+         if(img !=""){
+           
+          ell.src =baseu + img;
+         }else{
+         ell.src = "https://image.flaticon.com/icons/svg/725/725045.svg";
+         }
+        
+        el.appendChild(ell);
+        
+    
+    
+    
+        }else if(sc[i].innerText.includes('source: window.atob(\'')){
   
+          var urll = sc[i].innerText.split('source: window.atob(\'')[1].split('\"')[0];
+    
+        var el = document.createElement("a");
+          el.target = "_blank";
+                el.href = "http://www.reloltv.com/embed-custom.php?video="+ baseu + url + urll;
+        
+          
+          
+                document.getElementById('che').appendChild(el);
+    
+        var pp = document.createElement("p");
+        pp.setAttribute("class","lang");
+        pp.innerText = name;
+        el.appendChild(pp);
+  
+        
+        var ell = document.createElement("img");
+         
+         if(img !=""){
+           
+          ell.src =baseu + img;
+         }else{
+         ell.src = "https://image.flaticon.com/icons/svg/725/725045.svg";
+         }
+        
+        el.appendChild(ell);
+    
+    
         }
+    
         
-        
-        
-        document.getElementById('che').appendChild(el);
-  
-      var pp = document.createElement("p");
-      pp.setAttribute("class","lang");
-      pp.innerText = name;
-      el.appendChild(pp);
-      
-      
-       var ell = document.createElement("img");
-       
-       if(img !=""){
          
-        ell.src =baseu + img;
-       }else{
-       ell.src = "https://image.flaticon.com/icons/svg/725/725045.svg";
-       }
-      
-      el.appendChild(ell);
-      
-  
-  
-  
-      }else if(sc[i].innerText.includes('source: window.atob(\'')){
-
-        var urll = sc[i].innerText.split('source: window.atob(\'')[1].split('\"')[0];
-  
-      var el = document.createElement("a");
-        el.target = "_blank";
-              el.href = "http://www.reloltv.com/embed-custom.php?video="+ baseu + url + urll;
-      
-        
-        
-              document.getElementById('che').appendChild(el);
-  
-      var pp = document.createElement("p");
-      pp.setAttribute("class","lang");
-      pp.innerText = name;
-      el.appendChild(pp);
-
-      
-      var ell = document.createElement("img");
-       
-       if(img !=""){
-         
-        ell.src =baseu + img;
-       }else{
-       ell.src = "https://image.flaticon.com/icons/svg/725/725045.svg";
-       }
-      
-      el.appendChild(ell);
-  
-  
+    
       }
-  
-      
-       
-  
+     
     }
-   
+    
+  
+  
+  
+
+                }
+            });
+
   }
   
+
+ 
+
+  }
+
   
-    });
-
-
-
-
-    }
-
-
-
-    goPlay();
-
+  goPlay();
 
 }
 
