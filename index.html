@@ -629,6 +629,7 @@ if(typeof fuckAdBlock !== 'undefined' || typeof FuckAdBlock !== 'undefined') {
 
 
 
+
 function tjeter(){
 
 
@@ -636,18 +637,18 @@ function tjeter(){
   
   var bb = ['http://www.knaqu.tv/channel/film-aksion-live/','http://www.knaqu.tv/channel/tv-klan-live/','http://www.knaqu.tv/channel/super-sport-2-live-albania/','http://www.knaqu.tv/channel//explorer-shkenc-live/'];
 
-for(var i = 0;i<bb.length;i++){
+filma();
 
-  $.ajax({
-                method: 'get',
-                url: bb[i],
-                success: function(text) {
+function filma() {
 
 
+var xhr = new XMLHttpRequest();
+xhr.open("GET", bb[0]);
+xhr.onload = function(){
 
 
-                  var parser = new DOMParser();
-    var htmlDoc = parser.parseFromString(text, 'text/html');
+  var parser = new DOMParser();
+    var htmlDoc = parser.parseFromString(xhr.response, 'text/html');
     
     
     var kanli = htmlDoc.getElementById('featured').getElementsByTagName('a');
@@ -670,32 +671,24 @@ for(var i = 0;i<bb.length;i++){
   
     }
 
+};
+xhr.send();
 
 
-
-
-                }
-            });
-
-}
-
-  
-  
-  
-  
-  function pla(url,img,name){
+function pla(url,img,name){
   
   if(url != ""){
 
 
-    $.ajax({
-                method: 'get',
-                url: baseu + url,
-                success: function(text) {
+
+var xhr = new XMLHttpRequest();
+xhr.open("GET", baseu +  url);
+xhr.onload = function() {
                   
+var text = xhr.response;
 
 
-                  if(text != ''){
+if(text != ''){
       
       var parser = new DOMParser();
       var htmlDoc = parser.parseFromString(text, 'text/html');
@@ -795,12 +788,501 @@ for(var i = 0;i<bb.length;i++){
      
     }
     
-  
-  
+}
+
+xhr.send();
+
+  }
   
 
-                }
-            });
+ 
+
+  }
+
+  shqip();
+
+}
+                
+
+function shqip() {
+
+
+var xhr = new XMLHttpRequest();
+xhr.open("GET", bb[1]);
+xhr.onload = function(){
+
+
+  var parser = new DOMParser();
+    var htmlDoc = parser.parseFromString(xhr.response, 'text/html');
+    
+    
+    var kanli = htmlDoc.getElementById('featured').getElementsByTagName('a');
+    
+    for(var i=0;i < kanli.length;i++){
+  
+  
+      //console.log(kanli[i]);
+      
+     var url = kanli[i].getAttribute('href')!="#"? kanli[i].getAttribute('href'): "";
+    
+       var img = kanli[i].getElementsByTagName('img').length >0 ? kanli[i].getElementsByTagName('img')[0].getAttribute('src') : "" ;
+      
+      
+        var name = kanli[i].getElementsByTagName('img').length > 0? kanli[i].getElementsByTagName('img')[0].getAttribute('alt'): "ska info";
+  
+      
+        pla(url,img,name);
+
+  
+    }
+
+};
+xhr.send();
+
+
+function pla(url,img,name){
+  
+  if(url != ""){
+
+
+
+var xhr = new XMLHttpRequest();
+xhr.open("GET", baseu +  url);
+xhr.onload = function() {
+                  
+var text = xhr.response;
+
+
+if(text != ''){
+      
+      var parser = new DOMParser();
+      var htmlDoc = parser.parseFromString(text, 'text/html');
+    
+    var mi = htmlDoc.getElementById('latest').getElementsByTagName('div')!= null? htmlDoc.getElementById('latest').getElementsByTagName('div')[0] : htmlDoc.getElementById('latest');
+    
+  
+    var sc = mi.getElementsByTagName('script');
+      for(var i=0;i<sc.length;i++){
+    
+    
+        if(sc[i].innerText.includes('source:\"')){
+  
+  
+       var urll = sc[i].innerText.split('source:\"')[1].split('\"')[0];
+  
+  
+        var el = document.createElement("a");
+          el.target = "_blank";
+    
+    
+          if(urll.startsWith('http')){
+    
+            el.href = "http://www.reloltv.com/embed-custom.php?video=" + urll;
+        
+          
+    
+          }else{
+    
+    
+            el.href = "http://www.reloltv.com/embed-custom.php?video="+ baseu + urll;
+        
+          
+    
+          }
+          
+          
+          
+          document.getElementById('che').appendChild(el);
+    
+        var pp = document.createElement("p");
+        pp.setAttribute("class","lang");
+        pp.innerText = name;
+        el.appendChild(pp);
+        
+        
+         var ell = document.createElement("img");
+         
+         if(img !=""){
+           
+          ell.src =baseu + img;
+         }else{
+         ell.src = "https://image.flaticon.com/icons/svg/725/725045.svg";
+         }
+        
+        el.appendChild(ell);
+        
+    
+    
+    
+        }else if(sc[i].innerText.includes('source: window.atob(\'')){
+  
+          var urll = sc[i].innerText.split('source: window.atob(\'')[1].split('\"')[0];
+    
+        var el = document.createElement("a");
+          el.target = "_blank";
+                el.href = "http://www.reloltv.com/embed-custom.php?video="+ baseu + url + urll;
+        
+          
+          
+                document.getElementById('che').appendChild(el);
+    
+        var pp = document.createElement("p");
+        pp.setAttribute("class","lang");
+        pp.innerText = name;
+        el.appendChild(pp);
+  
+        
+        var ell = document.createElement("img");
+         
+         if(img !=""){
+           
+          ell.src =baseu + img;
+         }else{
+         ell.src = "https://image.flaticon.com/icons/svg/725/725045.svg";
+         }
+        
+        el.appendChild(ell);
+    
+    
+        }
+    
+        
+         
+    
+      }
+     
+    }
+    
+}
+
+xhr.send();
+
+  }
+  
+
+ 
+
+  }
+sport();
+}
+
+
+function sport() {
+
+
+var xhr = new XMLHttpRequest();
+xhr.open("GET", bb[2]);
+xhr.onload = function(){
+
+
+  var parser = new DOMParser();
+    var htmlDoc = parser.parseFromString(xhr.response, 'text/html');
+    
+    
+    var kanli = htmlDoc.getElementById('featured').getElementsByTagName('a');
+    
+    for(var i=0;i < kanli.length;i++){
+  
+  
+      //console.log(kanli[i]);
+      
+     var url = kanli[i].getAttribute('href')!="#"? kanli[i].getAttribute('href'): "";
+    
+       var img = kanli[i].getElementsByTagName('img').length >0 ? kanli[i].getElementsByTagName('img')[0].getAttribute('src') : "" ;
+      
+      
+        var name = kanli[i].getElementsByTagName('img').length > 0? kanli[i].getElementsByTagName('img')[0].getAttribute('alt'): "ska info";
+  
+      
+        pla(url,img,name);
+
+  
+    }
+
+};
+xhr.send();
+
+
+function pla(url,img,name){
+  
+  if(url != ""){
+
+
+
+var xhr = new XMLHttpRequest();
+xhr.open("GET", baseu +  url);
+xhr.onload = function() {
+                  
+var text = xhr.response;
+
+
+if(text != ''){
+      
+      var parser = new DOMParser();
+      var htmlDoc = parser.parseFromString(text, 'text/html');
+    
+    var mi = htmlDoc.getElementById('latest').getElementsByTagName('div')!= null? htmlDoc.getElementById('latest').getElementsByTagName('div')[0] : htmlDoc.getElementById('latest');
+    
+  
+    var sc = mi.getElementsByTagName('script');
+      for(var i=0;i<sc.length;i++){
+    
+    
+        if(sc[i].innerText.includes('source:\"')){
+  
+  
+       var urll = sc[i].innerText.split('source:\"')[1].split('\"')[0];
+  
+  
+        var el = document.createElement("a");
+          el.target = "_blank";
+    
+    
+          if(urll.startsWith('http')){
+    
+            el.href = "http://www.reloltv.com/embed-custom.php?video=" + urll;
+        
+          
+    
+          }else{
+    
+    
+            el.href = "http://www.reloltv.com/embed-custom.php?video="+ baseu + urll;
+        
+          
+    
+          }
+          
+          
+          
+          document.getElementById('che').appendChild(el);
+    
+        var pp = document.createElement("p");
+        pp.setAttribute("class","lang");
+        pp.innerText = name;
+        el.appendChild(pp);
+        
+        
+         var ell = document.createElement("img");
+         
+         if(img !=""){
+           
+          ell.src =baseu + img;
+         }else{
+         ell.src = "https://image.flaticon.com/icons/svg/725/725045.svg";
+         }
+        
+        el.appendChild(ell);
+        
+    
+    
+    
+        }else if(sc[i].innerText.includes('source: window.atob(\'')){
+  
+          var urll = sc[i].innerText.split('source: window.atob(\'')[1].split('\"')[0];
+    
+        var el = document.createElement("a");
+          el.target = "_blank";
+                el.href = "http://www.reloltv.com/embed-custom.php?video="+ baseu + url + urll;
+        
+          
+          
+                document.getElementById('che').appendChild(el);
+    
+        var pp = document.createElement("p");
+        pp.setAttribute("class","lang");
+        pp.innerText = name;
+        el.appendChild(pp);
+  
+        
+        var ell = document.createElement("img");
+         
+         if(img !=""){
+           
+          ell.src =baseu + img;
+         }else{
+         ell.src = "https://image.flaticon.com/icons/svg/725/725045.svg";
+         }
+        
+        el.appendChild(ell);
+    
+    
+        }
+    
+        
+         
+    
+      }
+     
+    }
+    
+}
+
+xhr.send();
+
+  }
+  
+
+ 
+
+  }
+
+  dok();
+
+}
+
+function dok() {
+
+
+var xhr = new XMLHttpRequest();
+xhr.open("GET", bb[3]);
+xhr.onload = function(){
+
+
+  var parser = new DOMParser();
+    var htmlDoc = parser.parseFromString(xhr.response, 'text/html');
+    
+    
+    var kanli = htmlDoc.getElementById('featured').getElementsByTagName('a');
+    
+    for(var i=0;i < kanli.length;i++){
+  
+  
+      //console.log(kanli[i]);
+      
+     var url = kanli[i].getAttribute('href')!="#"? kanli[i].getAttribute('href'): "";
+    
+       var img = kanli[i].getElementsByTagName('img').length >0 ? kanli[i].getElementsByTagName('img')[0].getAttribute('src') : "" ;
+      
+      
+        var name = kanli[i].getElementsByTagName('img').length > 0? kanli[i].getElementsByTagName('img')[0].getAttribute('alt'): "ska info";
+  
+      
+        pla(url,img,name);
+
+  
+    }
+
+};
+xhr.send();
+
+
+function pla(url,img,name){
+  
+  if(url != ""){
+
+
+
+var xhr = new XMLHttpRequest();
+xhr.open("GET", baseu +  url);
+xhr.onload = function() {
+                  
+var text = xhr.response;
+
+
+if(text != ''){
+      
+      var parser = new DOMParser();
+      var htmlDoc = parser.parseFromString(text, 'text/html');
+    
+    var mi = htmlDoc.getElementById('latest').getElementsByTagName('div')!= null? htmlDoc.getElementById('latest').getElementsByTagName('div')[0] : htmlDoc.getElementById('latest');
+    
+  
+    var sc = mi.getElementsByTagName('script');
+      for(var i=0;i<sc.length;i++){
+    
+    
+        if(sc[i].innerText.includes('source:\"')){
+  
+  
+       var urll = sc[i].innerText.split('source:\"')[1].split('\"')[0];
+  
+  
+        var el = document.createElement("a");
+          el.target = "_blank";
+    
+    
+          if(urll.startsWith('http')){
+    
+            el.href = "http://www.reloltv.com/embed-custom.php?video=" + urll;
+        
+          
+    
+          }else{
+    
+    
+            el.href = "http://www.reloltv.com/embed-custom.php?video="+ baseu + urll;
+        
+          
+    
+          }
+          
+          
+          
+          document.getElementById('che').appendChild(el);
+    
+        var pp = document.createElement("p");
+        pp.setAttribute("class","lang");
+        pp.innerText = name;
+        el.appendChild(pp);
+        
+        
+         var ell = document.createElement("img");
+         
+         if(img !=""){
+           
+          ell.src =baseu + img;
+         }else{
+         ell.src = "https://image.flaticon.com/icons/svg/725/725045.svg";
+         }
+        
+        el.appendChild(ell);
+        
+    
+    
+    
+        }else if(sc[i].innerText.includes('source: window.atob(\'')){
+  
+          var urll = sc[i].innerText.split('source: window.atob(\'')[1].split('\"')[0];
+    
+        var el = document.createElement("a");
+          el.target = "_blank";
+                el.href = "http://www.reloltv.com/embed-custom.php?video="+ baseu + url + urll;
+        
+          
+          
+                document.getElementById('che').appendChild(el);
+    
+        var pp = document.createElement("p");
+        pp.setAttribute("class","lang");
+        pp.innerText = name;
+        el.appendChild(pp);
+  
+        
+        var ell = document.createElement("img");
+         
+         if(img !=""){
+           
+          ell.src =baseu + img;
+         }else{
+         ell.src = "https://image.flaticon.com/icons/svg/725/725045.svg";
+         }
+        
+        el.appendChild(ell);
+    
+    
+        }
+    
+        
+         
+    
+      }
+     
+    }
+    
+}
+
+xhr.send();
 
   }
   
@@ -810,10 +1292,12 @@ for(var i = 0;i<bb.length;i++){
   }
 
   
-  goPlay();
+  
 
 }
 
+
+}
 
   
   //   function sleep(milliseconds) {
